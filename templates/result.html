@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Result</title>
+</head>
+<body>
+
+<h2>Final Scores</h2>
+
+{% for player, score in totals.items() %}
+    <p><b>{{ player }}</b> : {{ score }}</p>
+{% endfor %}
+
+<h3>🏆 Winner(s): {{ winners | join(", ") }}</h3>
+
+<hr>
+
+<h2>Round-wise Breakdown</h2>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th rowspan="2">Round</th>
+        {% for player in totals.keys() %}
+            <th colspan="2">{{ player }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for player in totals.keys() %}
+            <th>Call</th>
+            <th>Result</th>
+        {% endfor %}
+    </tr>
+
+    {% for round in all_data %}
+    <tr>
+        <td>{{ round.round }}</td>
+        {% for player in totals.keys() %}
+            <td>{{ round.players[player].call }}</td>
+            <td>{{ round.players[player].result }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

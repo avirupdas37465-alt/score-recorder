@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter Scores</title>
+</head>
+<body>
+
+<h2>Call & Result Entry</h2>
+
+<form method="post" action="/result">
+
+    {% for p in players %}
+        <input type="hidden" name="players" value="{{ p }}">
+    {% endfor %}
+    <input type="hidden" name="rounds" value="{{ rounds }}">
+
+    <table border="1" cellpadding="6">
+        <tr>
+            <th rowspan="2">Round</th>
+            {% for p in players %}
+                <th colspan="2">{{ p }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for p in players %}
+                <th>Call</th>
+                <th>Result</th>
+            {% endfor %}
+        </tr>
+
+        {% for r in range(rounds) %}
+        <tr>
+            <td>{{ r + 1 }}</td>
+            {% for p in players %}
+                <td>
+                    <input type="number" name="{{ p }}_call_{{ r }}" required>
+                </td>
+                <td>
+                    <input type="number" step="any"
+                           name="{{ p }}_result_{{ r }}" required>
+                </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <button type="submit">Finish Game</button>
+
+</form>
+
+</body>
+</html>
